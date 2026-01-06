@@ -40,26 +40,12 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()
 
         # backgrounds
-        self.bg1 = pygame.image.load('images/backgrounds/1.jpg')
-        self.bg2 = pygame.image.load('images/backgrounds/2.jpg')
-        self.bg3 = pygame.image.load('images/backgrounds/3.jpg')
-        self.bg4 = pygame.image.load('images/backgrounds/4.jpg')
-        self.bg5 = pygame.image.load('images/backgrounds/5.jpg')
-        self.bg6 = pygame.image.load('images/backgrounds/6.jpg')
-        self.bg7 = pygame.image.load('images/backgrounds/7.jpg')
-        self.bg8 = pygame.image.load('images/backgrounds/8.jpg')
-        self.bg9 = pygame.image.load('images/backgrounds/9.jpg')
-        self.bg10 = pygame.image.load('images/backgrounds/10.jpg')
-        self.bg11 = pygame.image.load('images/backgrounds/11.jpg')
-        self.bg12 = pygame.image.load('images/backgrounds/12.jpg')
-        self.bg13 = pygame.image.load('images/backgrounds/13.jpg')
-        self.bg14 = pygame.image.load('images/backgrounds/14.jpg')
-        self.bg15 = pygame.image.load('images/backgrounds/15.jpeg')
-        self.bg16 = pygame.image.load('images/backgrounds/16.jpg')
-        self.bg17 = pygame.image.load('images/backgrounds/17.jpg')
-        self.bg18 = pygame.image.load('images/backgrounds/18.jpg')
-        self.bg19 = pygame.image.load('images/backgrounds/19.jpg')
-        self.bg20 = pygame.image.load('images/backgrounds/20.jpg')
+        self.backgrounds = []
+
+        for i in range(1, 21):
+            img = pygame.image.load(f'images/backgrounds/{i}.jpg').convert()
+            img = pygame.transform.scale(img, (self.settings.screen_width, self.settings.screen_height))
+            self.backgrounds.append(img)
 
         self._create_fleet()
         # Creating a Play button
@@ -269,46 +255,8 @@ class AlienInvasion:
 
     def _change_background(self):
         """Changes background every new level (till the 20th)"""
-        if self.stats.level == 1:
-            self.screen.blit(self.bg1, (0, 0))
-        elif self.stats.level == 2:
-            self.screen.blit(self.bg2, (0, 0))
-        elif self.stats.level == 3:
-            self.screen.blit(self.bg3, (0, 0))
-        elif self.stats.level == 4:
-            self.screen.blit(self.bg4, (0, 0))
-        elif self.stats.level == 5:
-            self.screen.blit(self.bg5, (0, 0))
-        elif self.stats.level == 6:
-            self.screen.blit(self.bg6, (0, 0))
-        elif self.stats.level == 7:
-            self.screen.blit(self.bg7, (0, 0))
-        elif self.stats.level == 8:
-            self.screen.blit(self.bg8, (0, 0))
-        elif self.stats.level == 9:
-            self.screen.blit(self.bg9, (0, 0))
-        elif self.stats.level == 10:
-            self.screen.blit(self.bg10, (0, 0))
-        elif self.stats.level == 11:
-            self.screen.blit(self.bg11, (0, 0))
-        elif self.stats.level == 12:
-            self.screen.blit(self.bg12, (0, 0))
-        elif self.stats.level == 13:
-            self.screen.blit(self.bg13, (0, 0))
-        elif self.stats.level == 14:
-            self.screen.blit(self.bg14, (0, 0))
-        elif self.stats.level == 15:
-            self.screen.blit(self.bg15, (0, 0))
-        elif self.stats.level == 16:
-            self.screen.blit(self.bg16, (0, 0))
-        elif self.stats.level == 17:
-            self.screen.blit(self.bg17, (0, 0))
-        elif self.stats.level == 18:
-            self.screen.blit(self.bg18, (0, 0))
-        elif self.stats.level == 19:
-            self.screen.blit(self.bg19, (0, 0))
-        else:
-            self.screen.blit(self.bg20, (0, 0))
+        index = min(self.stats.level - 1, len(self.backgrounds) - 1)
+        self.screen.blit(self.backgrounds[index], (0, 0))
 
     def _update_screen(self):
         """Updates the images on the screen and displays a new screen"""
